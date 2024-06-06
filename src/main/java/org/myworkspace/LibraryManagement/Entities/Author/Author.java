@@ -1,5 +1,7 @@
 package org.myworkspace.LibraryManagement.Entities.Author;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.myworkspace.LibraryManagement.Entities.BaseEntity;
@@ -10,6 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @Entity
@@ -24,6 +27,8 @@ public class Author extends BaseEntity {
     @Column(unique = true, length = 50)
     private String email;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "author")
+    @JsonIgnoreProperties(value = "author")
     private List<Book> bookList;
 }

@@ -18,21 +18,21 @@ public class BaseEntity implements Auditable{
 
     @Override
     public Date getCreationDate() {
-        return null;
+        return createdOn;
     }
 
     @Override
     public void setCreationDate(Date createdOn) {
-
+        this.createdOn = createdOn;
     }
 
     @Override
     public Date getUpdateDate() {
-        return null;
+        return updatedOn;
     }
 
     @Override
     public void setUpdateDate(Date updatedOn) {
-
+        this.updatedOn = updatedOn;
     }
 }

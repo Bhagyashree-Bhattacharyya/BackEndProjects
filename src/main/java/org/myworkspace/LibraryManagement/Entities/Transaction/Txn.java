@@ -9,6 +9,7 @@ import org.myworkspace.LibraryManagement.Entities.User.User;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @Entity
