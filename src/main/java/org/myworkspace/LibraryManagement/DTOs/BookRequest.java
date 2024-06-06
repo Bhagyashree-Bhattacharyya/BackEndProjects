@@ -3,10 +3,7 @@ package org.myworkspace.LibraryManagement.DTOs;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.myworkspace.LibraryManagement.Entities.Author.Author;
 import org.myworkspace.LibraryManagement.Entities.Book.Book;
 import org.myworkspace.LibraryManagement.Entities.Book.BookType;
@@ -14,6 +11,7 @@ import org.myworkspace.LibraryManagement.Entities.Book.BookType;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Builder
 public class BookRequest {
 

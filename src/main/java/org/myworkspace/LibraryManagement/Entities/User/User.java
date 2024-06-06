@@ -34,7 +34,7 @@ public class User extends BaseEntity {
     @Enumerated(value = EnumType.STRING)
     private UserType userType;
 
-    @Enumerated
+    @Enumerated//(value = EnumType.STRING) // could not add the constraint to already present table
     private UserStatus userStatus;
 
     @OneToMany(mappedBy = "user")
