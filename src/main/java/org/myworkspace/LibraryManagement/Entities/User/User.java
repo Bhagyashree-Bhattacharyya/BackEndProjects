@@ -28,12 +28,6 @@ public class User extends BaseEntity {
     @Column(unique = true, length = 50)
     private String email;
 
-//    @CreationTimestamp
-//    private Date createdOn;
-//
-//    @CreationTimestamp
-//    private Date updatedOn;
-
     private String address;
 
     @Enumerated(value = EnumType.STRING)

@@ -31,9 +31,4 @@ public class Txn extends BaseEntity {
     @JoinColumn
     private Book book;
 
-//    @CreationTimestamp
-//    private Date createdOn;
-//
-//    @CreationTimestamp
-//    private Date updatedOn;
 }

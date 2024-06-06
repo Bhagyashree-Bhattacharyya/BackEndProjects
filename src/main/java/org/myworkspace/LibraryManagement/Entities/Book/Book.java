@@ -31,12 +31,6 @@ public class Book extends BaseEntity {
 
     private Integer securityAmount;
 
-//    @CreationTimestamp
-//    private Date createdOn;
-//
-//    @CreationTimestamp
-//    private Date updatedOn;
-
     @ManyToOne
     @JoinColumn
     private User user;

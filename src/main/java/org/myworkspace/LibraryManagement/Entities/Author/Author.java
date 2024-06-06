@@ -2,11 +2,9 @@ package org.myworkspace.LibraryManagement.Entities.Author;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import org.myworkspace.LibraryManagement.Entities.BaseEntity;
 import org.myworkspace.LibraryManagement.Entities.Book.Book;
 
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -25,12 +23,6 @@ public class Author extends BaseEntity {
 
     @Column(unique = true, length = 50)
     private String email;
-
-//    @CreationTimestamp
-//    private Date createdOn;
-//
-//    @CreationTimestamp
-//    private Date updatedOn;
 
     @OneToMany(mappedBy = "author")
     private List<Book> bookList;
