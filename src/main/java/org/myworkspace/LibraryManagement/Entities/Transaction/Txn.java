@@ -18,7 +18,7 @@ public class Txn extends BaseEntity {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 20, unique = true)
+    @Column(length = 50, unique = true)
     private String txnId;
 
     @Enumerated
