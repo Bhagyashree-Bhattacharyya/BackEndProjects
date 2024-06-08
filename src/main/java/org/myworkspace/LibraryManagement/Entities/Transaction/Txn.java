@@ -21,6 +21,8 @@ public class Txn extends BaseEntity {
     @Column(length = 50, unique = true)
     private String txnId;
 
+    private int settlementAmount;
+
     @Enumerated
     private TxnStatus txnStatus;
 

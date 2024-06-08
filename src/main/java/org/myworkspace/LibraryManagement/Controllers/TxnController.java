@@ -4,10 +4,9 @@ import org.myworkspace.LibraryManagement.DTOs.TxnRequest;
 import org.myworkspace.LibraryManagement.Exceptions.TxnException;
 import org.myworkspace.LibraryManagement.Services.TxnService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/transactions")
@@ -17,7 +16,14 @@ public class TxnController {
     private TxnService txnService;
 
     @PostMapping("createTxn")
-    public String create(@RequestBody TxnRequest txnRequest) throws TxnException {
-        return txnService.create(txnRequest);
+    public ResponseEntity<String> create(@RequestBody TxnRequest txnRequest) throws TxnException {
+        String txnId = txnService.create(txnRequest);
+        return new ResponseEntity<>(txnId, HttpStatus.OK);
+    }
+
+    @PutMapping("/return")
+    public ResponseEntity<String> returnBook(@RequestBody TxnRequest txnRequest) throws TxnException {
+        String txnId = txnService.returnBook(txnRequest);
+        return new ResponseEntity<>("to be settled with Rs." + txnId, HttpStatus.OK);
     }
 }
