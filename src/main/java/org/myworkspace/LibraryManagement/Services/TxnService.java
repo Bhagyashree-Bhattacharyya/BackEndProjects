@@ -100,7 +100,7 @@ public class TxnService {
         return String.valueOf(settleAmount);
     }
 
-    private int calculateFine(Txn txn, int securityAmount) {
+    public int calculateFine(Txn txn, int securityAmount) {
         long issueDate = txn.getCreatedOn().getTime();
         long returnDate = System.currentTimeMillis();
         int HoldingDays = (int) TimeUnit.DAYS.convert(returnDate-issueDate, TimeUnit.MILLISECONDS);

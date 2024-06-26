@@ -20,8 +20,7 @@ public class BookController {
 
     @PostMapping("/addBook")
     public Book addBook(@RequestBody @Valid BookRequest bookRequest){
-        Book book = bookService.addBook(bookRequest);
-        return book;
+        return bookService.addBook(bookRequest);
     }
 
     @GetMapping("/filter")

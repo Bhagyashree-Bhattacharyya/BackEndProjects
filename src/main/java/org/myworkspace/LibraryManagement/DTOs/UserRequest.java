@@ -18,6 +18,9 @@ public class UserRequest {
 
     private String email;
 
+    @NotBlank(message = "user password should not be blank")
+    private String password;
+
     private String  address;
 
     public User toUser() {

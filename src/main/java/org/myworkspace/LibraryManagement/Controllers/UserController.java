@@ -22,7 +22,7 @@ public class UserController {
 
     @PostMapping("/addAdmin")
     public User addAdmin(@RequestBody UserRequest userRequest){
-        return null;
+        return userService.addAdmin(userRequest);
     }
 
     @GetMapping("/filter")

@@ -15,7 +15,7 @@ public class TxnController {
     @Autowired
     private TxnService txnService;
 
-    @PostMapping("createTxn")
+    @PostMapping("/createTxn")
     public ResponseEntity<String> create(@RequestBody TxnRequest txnRequest) throws TxnException {
         String txnId = txnService.create(txnRequest);
         return new ResponseEntity<>(txnId, HttpStatus.OK);

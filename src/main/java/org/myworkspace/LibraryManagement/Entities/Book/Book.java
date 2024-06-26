@@ -40,6 +40,6 @@ public class Book extends BaseEntity {
     @JoinColumn
     private Author author;
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
     private List<Txn> txnList;
 }

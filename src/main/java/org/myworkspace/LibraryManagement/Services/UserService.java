@@ -8,10 +8,17 @@ import org.myworkspace.LibraryManagement.Entities.Filtering.Operator;
 import org.myworkspace.LibraryManagement.Entities.Filtering.UserFilterType;
 import org.myworkspace.LibraryManagement.Entities.User.User;
 import org.myworkspace.LibraryManagement.Entities.User.UserType;
+import org.myworkspace.LibraryManagement.Exceptions.UserException;
+import org.myworkspace.LibraryManagement.Repositories.UserCacheRepository;
 import org.myworkspace.LibraryManagement.Repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +26,7 @@ import java.util.List;
 
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @PersistenceContext
     private EntityManager em;
@@ -29,8 +36,22 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Value("${consumer.authority}")
+    private String consumerAuthority;
+
+    @Value("${admin.authority}")
+    private String adminAuthority;
+
+    @Autowired
+    private PasswordEncoder encoder;
+
+    @Autowired
+    private UserCacheRepository cacheRepository;
+
     public User addConsumer(UserRequest userRequest){
         User user = userRequest.toUser();
+        user.setAuthorities(consumerAuthority);
+        user.setPassword(encoder.encode(userRequest.getPassword()));
         user.setUserType(UserType.CONSUMER);
         return userRepository.save(user);
     }
@@ -61,4 +82,27 @@ public class UserService {
     public User getConsumerByPhoneNo(String userPhoneNo) {
         return userRepository.findByPhoneNoAndUserType(userPhoneNo, UserType.CONSUMER);
     } // when only consumer can issue a book not admin
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        // check redis first
+        User user = cacheRepository.getUser(email);
+        if (user != null) {
+            return user;
+        }
+        user = userRepository.findByEmail(email); // in this project, email is chosen as username
+        if (user == null) {
+            new UserException("Wrong credentials");
+        }
+        cacheRepository.setUser(email, user);
+        return user;
+    }
+
+    public User addAdmin(UserRequest userRequest) {
+        User user = userRequest.toUser();
+        user.setAuthorities(adminAuthority);
+        user.setPassword(encoder.encode(userRequest.getPassword()));
+        user.setUserType(UserType.ADMIN);
+        return userRepository.save(user);
+    }
 }
